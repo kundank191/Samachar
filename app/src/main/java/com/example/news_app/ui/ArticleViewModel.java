@@ -16,10 +16,12 @@ public class ArticleViewModel extends android.arch.lifecycle.ViewModel {
 
     private LiveData<List<NetworkResponse.Article>> article;
     private NewsRepository newsRepository;
+    private String API_KEY;
 
     @Inject // Parameter provided by dagger 2
-    public ArticleViewModel(NewsRepository newsRepository){
+    public ArticleViewModel(NewsRepository newsRepository, String API_KEY){
         this.newsRepository = newsRepository;
+        article = newsRepository.getArticles(API_KEY);
     }
 
     public LiveData<List<NetworkResponse.Article>> getArticles() {

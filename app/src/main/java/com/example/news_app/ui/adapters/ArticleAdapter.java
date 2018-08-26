@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.news_app.R;
+import com.example.news_app.Utils.GlideApp;
 import com.example.news_app.data.database.Article;
 
 import java.util.List;
@@ -56,6 +58,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Article article = articleList.get(position);
 
+        GlideApp.with(getContext())
+                .load(article.getUrlToImage())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.articleIV);
+
+        holder.articleTV.setText(article.getDescription());
     }
 
     @Override

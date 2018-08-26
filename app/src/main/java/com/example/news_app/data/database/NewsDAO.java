@@ -6,8 +6,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.news_app.data.Network.NetworkResponse;
-
 import java.util.List;
 
 /**
@@ -17,9 +15,9 @@ import java.util.List;
 public interface NewsDAO {
 
     @Query("SELECT * FROM articles")
-    LiveData<NetworkResponse.Article> getNews();
+    LiveData<Article> getNews();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void save(List<NetworkResponse.Article> article);
+    void save(List<Article> article);
 
 }

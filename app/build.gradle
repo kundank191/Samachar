@@ -42,4 +42,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     // use kapt for Kotlin
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    //Using butter knife library
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

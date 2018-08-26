@@ -2,8 +2,8 @@ package com.example.news_app.ui;
 
 import android.arch.lifecycle.LiveData;
 
-import com.example.news_app.data.Network.NetworkResponse;
 import com.example.news_app.data.NewsRepository;
+import com.example.news_app.data.database.Article;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import javax.inject.Inject;
  */
 public class ArticleViewModel extends android.arch.lifecycle.ViewModel {
 
-    private LiveData<List<NetworkResponse.Article>> article;
+    private LiveData<List<Article>> article;
     private NewsRepository newsRepository;
     private String API_KEY;
 
@@ -24,11 +24,11 @@ public class ArticleViewModel extends android.arch.lifecycle.ViewModel {
         article = newsRepository.getArticles(API_KEY);
     }
 
-    public LiveData<List<NetworkResponse.Article>> getArticles() {
+    public LiveData<List<Article>> getArticles() {
         return article;
     }
 
-    public void setArticle(LiveData<List<NetworkResponse.Article>> article) {
+    public void setArticle(LiveData<List<Article>> article) {
         this.article = article;
     }
 }

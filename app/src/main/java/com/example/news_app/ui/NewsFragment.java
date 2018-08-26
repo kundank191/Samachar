@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.news_app.BuildConfig;
 import com.example.news_app.R;
+import com.example.news_app.Utils.InjectorUtils;
 
 
 /**
@@ -22,7 +23,6 @@ import com.example.news_app.R;
 public class NewsFragment extends Fragment {
 
     private ArticleViewModel viewModel;
-
     private String API_KEY = BuildConfig.API_KEY;
 
     public NewsFragment() {
@@ -32,13 +32,16 @@ public class NewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
+        ArticleViewModelFactory viewModelFactory = InjectorUtils.provideArticleViewModelFactory(getActivity().getApplicationContext(),API_KEY);
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(ArticleViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
+
+        return view;
     }
 }

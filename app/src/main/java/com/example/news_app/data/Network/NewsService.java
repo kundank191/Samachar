@@ -12,6 +12,6 @@ public interface NewsService {
 
     @GET("{type}")
     Call<NetworkResponse.RootObject> getArticlesList(@Path("type") String articleType
-                                                    , @Query("api") String API
+                                                    , @Query("apiKey") String API
                                                     , @Query("country") String country);
 }

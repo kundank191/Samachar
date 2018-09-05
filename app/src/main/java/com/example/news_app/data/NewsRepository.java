@@ -2,6 +2,7 @@ package com.example.news_app.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.news_app.AppExecutors;
@@ -26,6 +27,8 @@ import retrofit2.Response;
 @Singleton
 public class NewsRepository {
     private static final String LOG_TAG = NewsRepository.class.getSimpleName();
+    private static int pageNo = 1;
+    private static final int pageSize = 100;
 
     // For Singleton instantiation
     private static final Object LOCK = new Object();
@@ -56,18 +59,33 @@ public class NewsRepository {
         return sInstance;
     }
 
-    public LiveData<List<Article>> getArticles(String Api_Key){
+    public LiveData<List<Article>> getTopHeadlines(String Api_Key){
 
         final MutableLiveData<List<Article>> data = new MutableLiveData<>();
-        newsService.getArticlesList(NetworkUtils.PATH_TOP_HEADLINES,Api_Key,NetworkUtils.COUNTRY_INDIA).enqueue(new Callback<NetworkResponse.RootObject>() {
+        newsService.getTopHeadlinesArticlesList(NetworkUtils.PATH_TOP_HEADLINES,NetworkUtils.COUNTRY_INDIA,Api_Key,pageNo,pageSize).enqueue(new Callback<NetworkResponse.RootObject>() {
             @Override
-            public void onResponse(Call<NetworkResponse.RootObject> call, Response<NetworkResponse.RootObject> response) {
+            public void onResponse(@NonNull Call<NetworkResponse.RootObject> call, @NonNull Response<NetworkResponse.RootObject> response) {
                 data.setValue(response.body().getArticles());
-                Log.i("Network Response",response.body().toString());
             }
 
             @Override
-            public void onFailure(Call<NetworkResponse.RootObject> call, Throwable t) {
+            public void onFailure(@NonNull Call<NetworkResponse.RootObject> call, @NonNull Throwable t) {
+                Log.i("Network Error",call.toString());
+            }
+        });
+        return data;
+    }
+
+    public LiveData<List<Article>> getAllArticles(String Api_key){
+        final MutableLiveData<List<Article>> data = new MutableLiveData<>();
+        newsService.getArticles(NetworkUtils.PATH_EVERYTHING,Api_key,pageNo,pageSize).enqueue(new Callback<NetworkResponse.RootObject>() {
+            @Override
+            public void onResponse(@NonNull Call<NetworkResponse.RootObject> call, @NonNull Response<NetworkResponse.RootObject> response) {
+                data.setValue(response.body().getArticles());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NetworkResponse.RootObject> call, @NonNull Throwable t) {
                 Log.i("Network Error",call.toString());
             }
         });

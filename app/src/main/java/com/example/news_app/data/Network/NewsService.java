@@ -11,7 +11,15 @@ import retrofit2.http.Query;
 public interface NewsService {
 
     @GET("{type}")
-    Call<NetworkResponse.RootObject> getArticlesList(@Path("type") String articleType
-                                                    , @Query("apiKey") String API
-                                                    , @Query("country") String country);
+    Call<NetworkResponse.RootObject> getTopHeadlinesArticlesList(@Path("type") String articleType
+                                                    , @Query("country") String country
+                                                    , @Query("apiKey") String apiKey
+                                                    , @Query("page") int pageNo
+                                                    , @Query("pageSize") int pageSize);
+
+    @GET("{type")
+    Call<NetworkResponse.RootObject> getArticles(@Path("type") String articleType
+                                                            , @Query("apiKey") String apiKey
+                                                            , @Query("page") int pageNo
+                                                            , @Query("pageSize") int pageSize);
 }

@@ -15,7 +15,11 @@ public class NetworkUtils {
 
     public static String PATH_TOP_HEADLINES = "top-headlines";
     public static String COUNTRY_INDIA = "in";
-    public static String API_KEY = "apiKey";
+    public static String PATH_EVERYTHING = "everything";
+    public static String QUERY_PARAM_TYPE = "type";
+    public static String QUERY_PARAM_API_KEY = "apiKey";
+    public static String QUERY_PARAM_PAGE = "page";
+    public static String QUERY_PARAM_PAGE_SIZE = "pageSize";
     public static String BASE_URL = "https://newsapi.org/v2/";
     public static String BASE_URL_TOP_HEADLINES = "https://newsapi.org/v2/top-headlines";
 
@@ -23,7 +27,7 @@ public class NetworkUtils {
         AndroidNetworking.get(BASE_URL_TOP_HEADLINES)
                 .setPriority(Priority.LOW)
                 .addQueryParameter("country",COUNTRY_INDIA)
-                .addQueryParameter(API_KEY,Api_Key)
+                .addQueryParameter(QUERY_PARAM_API_KEY,Api_Key)
                 .build()
                 .getAsObject(NetworkResponse.RootObject.class, new ParsedRequestListener() {
                     @Override
